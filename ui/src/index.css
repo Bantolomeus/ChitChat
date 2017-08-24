@@ -1,1 +1,31 @@
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+}
 
+.chat {
+    overflow-y: auto;
+    position: absolute;
+    background-color: #eee;
+    width: 100%;
+    top: 0px;
+    bottom: 90px;
+    max-height: auto;
+}
+
+.send-cell {
+  text-align: right;
+}
+
+.footer {
+  position: absolute;
+  background-color: #ff5;
+  height: 90px;
+  width: 100%;
+  bottom: 0px;
+}
+
+.app {
+  height: 100vh;
+}

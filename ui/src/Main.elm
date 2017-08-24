@@ -72,14 +72,22 @@ update msg model =
             )
 
 
+
+--auto scroll:
+-- var objDiv = document.getElementById("chat");
+-- objDiv.scrollTop = objDiv.scrollHeight;
+
+
 view : Model -> Html Msg
 view model =
     div
-        [ class "mdc-typography" ]
+        [ class "mdc-typography app" ]
         [ div [ hidden True ]
             [ model |> toString |> text ]
         , div
-            [ class "mdc-layout-grid" ]
+            [ class "mdc-layout-grid chat"
+            , id "chat"
+            ]
             [ div
                 [ class "mdc-layout-grid__inner" ]
                 [ div
@@ -90,34 +98,37 @@ view model =
                     ]
                 ]
             ]
-        , div
-            [ class "mdc-layout-grid" ]
+        , Html.form
+            [ onSubmit Send ]
             [ div
-                [ class "mdc-layout-grid__inner" ]
+                [ class "mdc-layout-grid footer" ]
                 [ div
-                    [ class "mdc-layout-grid__cell mdc-layout-grid__cell--span-11" ]
+                    [ class "mdc-layout-grid__inner" ]
                     [ div
-                        [ class "mdc-textfield mdc-textfield--fullwidth"
-                        , style [ ( "height", "40px" ) ]
-                        ]
-                        [ input
-                            [ type_ "text"
-                            , onInput Input
-                            , class "mdc-textfield__input"
-                            , id "demo-input"
-                            , placeholder "What's on your mind?"
-                            , value model.input
+                        [ class "mdc-layout-grid__cell mdc-layout-grid__cell--span-10" ]
+                        [ div
+                            [ class "mdc-textfield mdc-textfield--fullwidth"
+                            , style [ ( "height", "40px" ) ]
                             ]
-                            []
+                            [ input
+                                [ type_ "text"
+                                , onInput Input
+                                , class "mdc-textfield__input"
+                                , id "demo-input"
+                                , placeholder "What's on your mind?"
+                                , value model.input
+                                ]
+                                []
+                            ]
                         ]
-                    ]
-                , div
-                    [ class "mdc-layout-grid__cell mdc-layout-grid__cell--span-1" ]
-                    [ button
-                        [ onClick Send
-                        , class "mdc-button mdc-button--raised mdc-button--accent"
+                    , div
+                        [ class "mdc-layout-grid__cell mdc-layout-grid__cell--span-2 send-cell" ]
+                        [ button
+                            [ type_ "submit"
+                            , class "mdc-button mdc-button--raised mdc-button--accent"
+                            ]
+                            [ text "Send" ]
                         ]
-                        [ text "Send" ]
                     ]
                 ]
             ]
