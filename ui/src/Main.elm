@@ -78,8 +78,17 @@ view model =
         [ class "mdc-typography" ]
         [ div [ hidden True ]
             [ model |> toString |> text ]
-        , div []
-            [ div [] (List.map viewMessage (List.reverse model.messages))
+        , div
+            [ class "mdc-layout-grid" ]
+            [ div
+                [ class "mdc-layout-grid__inner" ]
+                [ div
+                    [ class "mdc-layout-grid__cell mdc-layout-grid__cell--span-12" ]
+                    [ ul
+                        [ class "mdc-list" ]
+                        (List.map viewMessage (List.reverse model.messages))
+                    ]
+                ]
             ]
         , div
             [ class "mdc-layout-grid" ]
@@ -117,7 +126,8 @@ view model =
 
 viewMessage : String -> Html Msg
 viewMessage msg =
-    div []
+    li
+        [ class "mdc-list-item" ]
         [ text msg ]
 
 
