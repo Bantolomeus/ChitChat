@@ -1,0 +1,37 @@
+{
+  "name": "ui",
+  "version": "1.0.0",
+  "description": "",
+  "dependencies": {},
+  "private": true,
+  "devDependencies": {
+    "animate.css": "^3.5.2",
+    "clean-webpack-plugin": "^0.1.16",
+    "css-loader": "^0.28.4",
+    "elm": "^0.18.0",
+    "elm-format": "^0.6.1-alpha",
+    "elm-hot-loader": "^0.5.4",
+    "elm-test": "0.18.2",
+    "elm-webpack-loader": "^4.3.1",
+    "extract-text-webpack-plugin": "^3.0.0",
+    "file-loader": "^0.11.2",
+    "html-webpack-plugin": "^2.29.0",
+    "html-webpack-template": "^5.6.0",
+    "material-components-web": "^0.18.1",
+    "style-loader": "^0.18.2",
+    "webpack": "^3.3.0",
+    "webpack-dev-server": "^2.6.1",
+    "webpack-merge": "^4.1.0"
+  },
+  "scripts": {
+    "format": "elm-format src/ tests/",
+    "format:validate": "elm-format --validate src/ tests/",
+    "test": "elm-test",
+    "compile": "elm-make",
+    "setup": "elm-install; cd tests; elm-install",
+    "dist": "webpack --config webpack.config.prod.js",
+    "start": "webpack-dev-server"
+  },
+  "author": "",
+  "license": "ISC"
+}
