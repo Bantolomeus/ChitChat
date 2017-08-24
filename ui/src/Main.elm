@@ -76,7 +76,7 @@ view : Model -> Html Msg
 view model =
     div
         [ class "mdc-typography" ]
-        [ div []
+        [ div [ hidden True ]
             [ model |> toString |> text ]
         , div []
             [ div [] (List.map viewMessage (List.reverse model.messages))
