@@ -54,6 +54,17 @@ module.exports = {
   ],
   module: {
     rules: [
+      // Load js files (mainly for material-components-web)
+      {
+        test: /\.js$/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            cacheDirectory: true,
+            presets: ['env'],
+          }
+        }
+      },
       // Load our Elm files
       {
         test: /\.elm$/,

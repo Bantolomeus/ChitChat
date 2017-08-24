@@ -2,6 +2,7 @@ import './favicon-300.png';
 
 // Load all style sheets
 import 'animate.css/animate.css';
+import 'material-components-web/dist/material-components-web.css'
 import './index.css';
 
 // Import the application from ELM

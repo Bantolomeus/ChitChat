@@ -74,16 +74,51 @@ update msg model =
 
 view : Model -> Html Msg
 view model =
-    div []
-        [ input [ onInput Input ] []
-        , button [ onClick Send ] [ text "Send" ]
-        , div [] (List.map viewMessage (List.reverse model.messages))
+    div
+        [ class "mdc-typography" ]
+        [ div []
+            [ model |> toString |> text ]
+        , div []
+            [ div [] (List.map viewMessage (List.reverse model.messages))
+            ]
+        , div
+            [ class "mdc-layout-grid" ]
+            [ div
+                [ class "mdc-layout-grid__inner" ]
+                [ div
+                    [ class "mdc-layout-grid__cell mdc-layout-grid__cell--span-11" ]
+                    [ div
+                        [ class "mdc-textfield mdc-textfield--fullwidth"
+                        , style [ ( "height", "40px" ) ]
+                        ]
+                        [ input
+                            [ type_ "text"
+                            , onInput Input
+                            , class "mdc-textfield__input"
+                            , id "demo-input"
+                            , placeholder "What's on your mind?"
+                            , value model.input
+                            ]
+                            []
+                        ]
+                    ]
+                , div
+                    [ class "mdc-layout-grid__cell mdc-layout-grid__cell--span-1" ]
+                    [ button
+                        [ onClick Send
+                        , class "mdc-button mdc-button--raised mdc-button--accent"
+                        ]
+                        [ text "Send" ]
+                    ]
+                ]
+            ]
         ]
 
 
 viewMessage : String -> Html Msg
 viewMessage msg =
-    div [] [ text msg ]
+    div []
+        [ text msg ]
 
 
 subscriptions : Model -> Sub Msg
