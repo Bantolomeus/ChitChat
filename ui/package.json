@@ -32,7 +32,7 @@
     "format:validate": "elm-format --validate src/ tests/",
     "test": "elm-test",
     "compile": "elm-make",
-    "setup": "elm-install; cd tests; elm-install",
+    "setup": "elm-package install",
     "dist": "webpack --config webpack.config.prod.js",
     "start": "webpack-dev-server"
   },
