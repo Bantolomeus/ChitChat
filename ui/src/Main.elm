@@ -8,6 +8,7 @@ import Routing exposing (Route)
 import Navigation exposing (Location)
 import Dom.Scroll as Scroll
 import Task
+import Markdown
 
 
 type Msg
@@ -20,7 +21,7 @@ type Msg
 
 type alias Model =
     { input : String
-    , messages : List String
+    , messages : List (Html Msg)
     , location : Location
     , route : Route
     }
@@ -61,7 +62,7 @@ update msg model =
 
         NewMessage str ->
             ( { model
-                | messages = str :: model.messages
+                | messages = (Markdown.toHtml [] str) :: model.messages
               }
             , Task.attempt (always NoOp) <| Scroll.toBottom "chat"
             )
@@ -138,7 +139,7 @@ view model =
         ]
 
 
-viewMessage : String -> Html Msg
+viewMessage : Html Msg -> Html Msg
 viewMessage msg =
     li
         [ class "mdc-list-item msg" ]
@@ -151,7 +152,7 @@ viewMessage msg =
             , alt "Avatar"
             ]
             []
-        , text msg
+        , msg
         ]
 
 
