@@ -19,8 +19,11 @@ html, body {
   margin-bottom:0.8em;
 }
 
-.send-cell {
-  text-align: right;
+.msg-input {
+  width: -webkit-calc(100% - 125px);
+  width:    -moz-calc(100% - 125px);
+  width:         calc(100% - 125px);
+  margin-right: 25px;
 }
 
 .footer {

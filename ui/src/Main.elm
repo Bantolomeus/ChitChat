@@ -111,9 +111,9 @@ view model =
                 [ div
                     [ class "mdc-layout-grid__inner" ]
                     [ div
-                        [ class "mdc-layout-grid__cell mdc-layout-grid__cell--span-10" ]
+                        [ class "mdc-layout-grid__cell mdc-layout-grid__cell--span-12" ]
                         [ div
-                            [ class "mdc-textfield mdc-textfield--fullwidth"
+                            [ class "mdc-textfield msg-input"
                             , style [ ( "height", "40px" ) ]
                             ]
                             [ input
@@ -126,10 +126,7 @@ view model =
                                 ]
                                 []
                             ]
-                        ]
-                    , div
-                        [ class "mdc-layout-grid__cell mdc-layout-grid__cell--span-2 send-cell" ]
-                        [ button
+                        , button
                             [ type_ "submit"
                             , class "mdc-button mdc-button--raised mdc-button--accent"
                             ]
