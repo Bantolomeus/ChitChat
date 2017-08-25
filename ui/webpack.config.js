@@ -71,13 +71,6 @@ module.exports = {
         exclude: [/elm-stuff/, /node-modules/],
         use: [
           { loader: 'elm-hot-loader' },
-          {
-            loader: 'elm-webpack-loader',
-            options: {
-              cacheDirectory: true,
-              presets: ['env'],
-            }
-          },
           { loader: 'elm-webpack-loader' }
         ]
       },
