@@ -6,6 +6,8 @@ import Html.Events exposing (..)
 import WebSocket
 import Routing exposing (Route)
 import Navigation exposing (Location)
+import Dom.Scroll as Scroll
+import Task
 
 
 type Msg
@@ -13,6 +15,7 @@ type Msg
     | Send
     | NewMessage String
     | OnLocationChange Location
+    | NoOp
 
 
 type alias Model =
@@ -60,7 +63,7 @@ update msg model =
             ( { model
                 | messages = str :: model.messages
               }
-            , Cmd.none
+            , Task.attempt (always NoOp) <| Scroll.toBottom "chat"
             )
 
         OnLocationChange location ->
@@ -70,6 +73,9 @@ update msg model =
               }
             , Cmd.none
             )
+
+        NoOp ->
+            ( model, Cmd.none )
 
 
 
