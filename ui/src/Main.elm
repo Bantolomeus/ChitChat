@@ -144,7 +144,7 @@ view model =
 viewMessage : String -> Html Msg
 viewMessage msg =
     li
-        [ class "mdc-list-item" ]
+        [ class "mdc-list-item msg" ]
         [ text msg ]
 
 
