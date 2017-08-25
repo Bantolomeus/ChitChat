@@ -19,17 +19,25 @@ html, body {
   margin-bottom:0.8em;
 }
 
-.msg-input {
+.msg-input-container {
   width: -webkit-calc(100% - 125px);
   width:    -moz-calc(100% - 125px);
   width:         calc(100% - 125px);
   margin-right: 25px;
 }
 
+.msg-input {
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12) !important;
+  resize: none !important;
+  outline: none;
+}
+
 .footer {
   position: absolute;
   background-color: #ff5;
-  height: 90px;
   width: 100%;
   bottom: 0px;
 }

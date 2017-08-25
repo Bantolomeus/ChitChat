@@ -9,6 +9,7 @@ import Navigation exposing (Location)
 import Dom.Scroll as Scroll
 import Task
 import Markdown
+import Json.Decode as Json
 
 
 type Msg
@@ -16,6 +17,7 @@ type Msg
     | Send
     | NewMessage String
     | OnLocationChange Location
+    | ClearInput
     | NoOp
 
 
@@ -53,11 +55,17 @@ update msg model =
             , Cmd.none
             )
 
+        ClearInput ->
+            ( { model | input = "" }, Cmd.none )
+
         Send ->
             ( { model
                 | input = ""
               }
-            , WebSocket.send echoServer model.input
+            , Cmd.batch
+                [ WebSocket.send echoServer model.input
+                , sendMsg ClearInput -- clear input as next message because the "\n" gets deliverd as Input right after this
+                ]
             )
 
         NewMessage str ->
@@ -79,10 +87,26 @@ update msg model =
             ( model, Cmd.none )
 
 
+sendMsg : msg -> Cmd msg
+sendMsg message =
+    Task.perform identity (Task.succeed message)
 
---auto scroll:
--- var objDiv = document.getElementById("chat");
--- objDiv.scrollTop = objDiv.scrollHeight;
+
+onShiftEnterHandler : Attribute Msg
+onShiftEnterHandler =
+    let
+        tagger ( code, shift ) =
+            if code == 13 && (not shift) then
+                Send
+            else
+                NoOp
+
+        keyExtractor =
+            Json.map2 (,)
+                (Json.field "keyCode" Json.int)
+                (Json.field "shiftKey" Json.bool)
+    in
+        on "keydown" <| Json.map tagger keyExtractor
 
 
 view : Model -> Html Msg
@@ -114,14 +138,13 @@ view model =
                     [ div
                         [ class "mdc-layout-grid__cell mdc-layout-grid__cell--span-12" ]
                         [ div
-                            [ class "mdc-textfield msg-input"
-                            , style [ ( "height", "40px" ) ]
-                            ]
-                            [ input
-                                [ type_ "text"
+                            [ class "mdc-textfield mdc-textfield--multiline mdc-textfield--upgraded msg-input-container" ]
+                            [ textarea
+                                [ onShiftEnterHandler
                                 , onInput Input
-                                , class "mdc-textfield__input"
+                                , class "mdc-textfield__input msg-input"
                                 , id "demo-input"
+                                , rows <| countNewLines model.input
                                 , placeholder "What's on your mind?"
                                 , value model.input
                                 ]
@@ -130,6 +153,10 @@ view model =
                         , button
                             [ type_ "submit"
                             , class "mdc-button mdc-button--raised mdc-button--accent"
+                            , style
+                                [ ( "vertical-align", "bottom" )
+                                , ( "margin-bottom", "8px" )
+                                ]
                             ]
                             [ text "Send" ]
                         ]
@@ -137,6 +164,11 @@ view model =
                 ]
             ]
         ]
+
+
+countNewLines : String -> Int
+countNewLines input =
+    String.lines input |> List.length
 
 
 viewMessage : Html Msg -> Html Msg
