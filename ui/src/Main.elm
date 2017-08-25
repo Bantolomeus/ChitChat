@@ -99,7 +99,7 @@ view model =
                 [ div
                     [ class "mdc-layout-grid__cell mdc-layout-grid__cell--span-12" ]
                     [ ul
-                        [ class "mdc-list" ]
+                        [ class "mdc-list mdc-list--avatar-list" ]
                         (List.map viewMessage (List.reverse model.messages))
                     ]
                 ]
@@ -145,7 +145,17 @@ viewMessage : String -> Html Msg
 viewMessage msg =
     li
         [ class "mdc-list-item msg" ]
-        [ text msg ]
+        [ img
+            [ class "md-list-item__start-detail"
+            , src "https://material-components-web.appspot.com/images/animal1.svg"
+            , width 56
+            , height 56
+            , style [ ( "margin-right", "16px" ) ]
+            , alt "Avatar"
+            ]
+            []
+        , text msg
+        ]
 
 
 subscriptions : Model -> Sub Msg
