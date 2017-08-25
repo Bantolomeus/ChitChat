@@ -70,7 +70,7 @@ update msg model =
 
         NewMessage str ->
             ( { model
-                | messages = (Markdown.toHtml [] str) :: model.messages
+                | messages = (Markdown.toHtmlWith markdownParserOptions [] str) :: model.messages
               }
             , Task.attempt (always NoOp) <| Scroll.toBottom "chat"
             )
@@ -85,6 +85,15 @@ update msg model =
 
         NoOp ->
             ( model, Cmd.none )
+
+
+markdownParserOptions : Markdown.Options
+markdownParserOptions =
+    { githubFlavored = Just { tables = True, breaks = True }
+    , defaultHighlighting = Nothing
+    , sanitize = True
+    , smartypants = False
+    }
 
 
 sendMsg : msg -> Cmd msg
