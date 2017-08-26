@@ -6,14 +6,15 @@ import org.springframework.web.socket.WebSocketSession
 import org.springframework.web.socket.handler.TextWebSocketHandler
 import java.util.concurrent.CopyOnWriteArrayList
 
-/*
-* @param <E> the type of elements held in this collection
-*/
-class EchoWebSocketHandler(var sessions: CopyOnWriteArrayList<Any>): TextWebSocketHandler() {
+class EchoWebSocketHandler: TextWebSocketHandler() {
+
+    private var sessions: CopyOnWriteArrayList<WebSocketSession> = CopyOnWriteArrayList()
 
     override fun handleTextMessage(session: WebSocketSession?, message: TextMessage?) {
         Logger.getLogger(this.javaClass).info(message)
-        session?.sendMessage(message)
+        sessions
+                .filter { it.isOpen }
+                .forEach { it.sendMessage(message) }
     }
 
     override fun afterConnectionEstablished(session: WebSocketSession?) {
