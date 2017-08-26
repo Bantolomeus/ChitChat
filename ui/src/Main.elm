@@ -31,7 +31,7 @@ type alias Model =
 
 echoServer : String
 echoServer =
-    "ws://echo.websocket.org"
+    "ws://localhost:8081/ws"
 
 
 init : Location -> ( Model, Cmd Msg )
