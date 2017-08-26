@@ -16,7 +16,7 @@ module.exports = {
     // Forward requests to API, downloads and websocket to the running backend
     proxy: {
       '/ws': {
-        target: 'ws://echo.websocket.org',
+        target: 'ws://localhost:8081',
         ws: true
       }
     },
