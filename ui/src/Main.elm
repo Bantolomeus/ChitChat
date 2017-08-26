@@ -199,7 +199,26 @@ viewMessage msg =
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    WebSocket.listen echoServer NewMessage
+    WebSocket.listen
+        (locationToWsUrl model.location)
+        NewMessage
+
+
+locationToWsUrl : Location -> String
+locationToWsUrl location =
+    let
+        wsProtocol =
+            if (String.contains "https" location.protocol) then
+                "wss"
+            else
+                "ws"
+    in
+        String.concat
+            [ wsProtocol
+            , "://"
+            , location.host
+            , "/ws"
+            ]
 
 
 main : Program Never Model Msg
