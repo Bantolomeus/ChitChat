@@ -1,6 +1,7 @@
 package com.bantolomeus.chitchat
 
 import org.springframework.context.annotation.Configuration
+import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer
 import org.springframework.web.servlet.config.annotation.EnableWebMvc
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.socket.config.annotation.EnableWebSocket
@@ -16,4 +17,7 @@ class WebSocketConfig: WebMvcConfigurerAdapter(), WebSocketConfigurer {
         registry?.addHandler(EchoWebSocketHandler(), "/ws")?.setAllowedOrigins("*")
     }
 
+    override fun configureDefaultServletHandling(configurer: DefaultServletHandlerConfigurer?) {
+        configurer?.enable()
+    }
 }
