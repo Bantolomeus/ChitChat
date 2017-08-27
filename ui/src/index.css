@@ -20,9 +20,9 @@ html, body {
 }
 
 .msg-input-container {
-  width: -webkit-calc(100% - 125px);
-  width:    -moz-calc(100% - 125px);
-  width:         calc(100% - 125px);
+  width: -webkit-calc(100% - 197px);
+  width:    -moz-calc(100% - 197px);
+  width:         calc(100% - 197px);
   margin-right: 25px;
 }
 

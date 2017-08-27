@@ -10,12 +10,14 @@ import Dom.Scroll as Scroll
 import Task
 import Markdown
 import Json.Decode as Json
+import CircularList exposing (CircularList)
 
 
 type Msg
     = Input String
     | Send
     | NewMessage String
+    | RotateAvatar
     | OnLocationChange Location
     | ClearInput
     | NoOp
@@ -26,6 +28,7 @@ type alias Model =
     , messages : List (Html Msg)
     , location : Location
     , route : Route
+    , avatar : CircularList String
     }
 
 
@@ -41,6 +44,12 @@ init location =
         []
         location
         (Routing.parseLocation location)
+        (CircularList.fromList
+            "https://material-components-web.appspot.com/images/animal1.svg"
+            [ "https://material-components-web.appspot.com/images/animal2.svg"
+            , "https://material-components-web.appspot.com/images/animal3.svg"
+            ]
+        )
     , Cmd.none
     )
 
@@ -80,6 +89,11 @@ update msg model =
                 | route = Routing.parseLocation location
                 , location = location
               }
+            , Cmd.none
+            )
+
+        RotateAvatar ->
+            ( { model | avatar = CircularList.next <| model.avatar }
             , Cmd.none
             )
 
@@ -146,7 +160,17 @@ view model =
                     [ class "mdc-layout-grid__inner" ]
                     [ div
                         [ class "mdc-layout-grid__cell mdc-layout-grid__cell--span-12" ]
-                        [ div
+                        [ img
+                            [ class "md-list-item__start-detail"
+                            , src <| CircularList.get <| model.avatar
+                            , onClick RotateAvatar
+                            , width 56
+                            , height 56
+                            , style [ ( "margin-right", "16px" ), ( "vertical-align", "bottom" ) ]
+                            , alt "Avatar"
+                            ]
+                            []
+                        , div
                             [ class "mdc-textfield mdc-textfield--multiline mdc-textfield--upgraded msg-input-container" ]
                             [ textarea
                                 [ onShiftEnterHandler
