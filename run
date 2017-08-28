@@ -1,6 +1,0 @@
-cd ./ui
-yarn dist
-
-cd ..
-cp -r ./ui/dist/* ./src/main/webapp
-mvn spring-boot:run
