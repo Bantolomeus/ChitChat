@@ -32,11 +32,6 @@ type alias Model =
     }
 
 
-echoServer : String
-echoServer =
-    "ws://localhost:8081/ws"
-
-
 init : Location -> ( Model, Cmd Msg )
 init location =
     ( Model
@@ -72,7 +67,7 @@ update msg model =
                 | input = ""
               }
             , Cmd.batch
-                [ WebSocket.send echoServer model.input
+                [ WebSocket.send (locationToWsUrl model.location) model.input
                 , sendMsg ClearInput -- clear input as next message because the "\n" gets deliverd as Input right after this
                 ]
             )
