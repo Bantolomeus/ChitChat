@@ -1,2 +1,2 @@
-web: java -jar target/chitchat-0.0.1-SNAPSHOT.jar
+web: java -Dserver.port=$PORT -jar target/chitchat-0.0.1-SNAPSHOT.jar
 
