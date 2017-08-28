@@ -32,8 +32,8 @@
     "format:validate": "elm-format --validate src/ tests/",
     "test": "elm-test",
     "compile": "elm-make",
-    "setup": "elm-package install",
-    "dist": "webpack --config webpack.config.prod.js",
+    "setup": "elm-package install -y",
+    "dist": "webpack --config webpack.config.prod.js; cp -r dist/* ../src/main/webapp",
     "start": "webpack-dev-server"
   },
   "author": "",

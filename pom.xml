@@ -107,6 +107,76 @@
 					</dependency>
 				</dependencies>
 			</plugin>
+			<plugin>
+				<groupId>com.github.eirslett</groupId>
+				<artifactId>frontend-maven-plugin</artifactId>
+				<version>1.5</version>
+				<!-- ... -->
+				<executions>
+					<execution>
+	        	<id>install node and yarn</id>
+		        <goals>
+		            <goal>install-node-and-yarn</goal>
+		        </goals>
+		        <phase>generate-resources</phase>
+	    		</execution>
+					<execution>
+            <id>yarn install</id>
+            <goals>
+              <goal>yarn</goal>
+            </goals>
+						<phase>generate-resources</phase>
+            <configuration>
+              <arguments>install</arguments>
+            </configuration>
+          </execution>
+					<execution>
+            <id>yarn setup</id>
+            <goals>
+              <goal>yarn</goal>
+            </goals>
+						<phase>generate-resources</phase>
+            <configuration>
+              <arguments>setup</arguments>
+            </configuration>
+          </execution>
+					<execution>
+            <id>yarn format validate</id>
+            <goals>
+              <goal>yarn</goal>
+            </goals>
+						<phase>compile</phase>
+            <configuration>
+              <arguments>format:validate</arguments>
+            </configuration>
+          </execution>
+					<execution>
+            <id>yarn test</id>
+            <goals>
+              <goal>yarn</goal>
+            </goals>
+						<phase>test</phase>
+            <configuration>
+              <arguments>test</arguments>
+            </configuration>
+          </execution>
+					<execution>
+            <id>yarn dist</id>
+            <goals>
+              <goal>yarn</goal>
+            </goals>
+						<phase>package</phase>
+            <configuration>
+              <arguments>dist</arguments>
+            </configuration>
+          </execution>
+				</executions>
+		    <configuration>
+		        <nodeVersion>v8.1.4</nodeVersion>
+		        <yarnVersion>v0.27.5</yarnVersion>
+						<workingDirectory>ui</workingDirectory>
+		    </configuration>
+			</plugin>
 		</plugins>
 	</build>
 
