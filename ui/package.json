@@ -33,7 +33,7 @@
     "test": "elm-test",
     "compile": "elm-make",
     "setup": "elm-package install -y",
-    "dist": "webpack --config webpack.config.prod.js; cp -r dist/* ../src/main/webapp",
+    "dist": "webpack --config webpack.config.prod.js --output-path ../src/main/webapp",
     "start": "webpack-dev-server"
   },
   "author": "",
