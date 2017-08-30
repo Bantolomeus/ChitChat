@@ -3,7 +3,11 @@ language: java
 install: true
 
 script:
-  - mvn test -B
+  - df -h
+  - mvn compile
+  - df -h
+  - mvn test
+  - df -h
 
 cache:
   directories:
