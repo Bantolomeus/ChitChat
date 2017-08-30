@@ -30,8 +30,8 @@
   "scripts": {
     "format": "elm-format src/ tests/",
     "format:validate": "elm-format --validate src/ tests/",
-    "test": "elm-test",
-    "compile": "elm-make",
+    "test": "elm-test -y",
+    "compile": "elm-make --yes",
     "setup": "elm-package install -y",
     "dist": "webpack --config webpack.config.prod.js --output-path ../src/main/webapp",
     "start": "webpack-dev-server"
