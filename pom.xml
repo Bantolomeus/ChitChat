@@ -151,6 +151,16 @@
             </configuration>
           </execution>
 					<execution>
+            <id>yarn compile</id>
+            <goals>
+              <goal>yarn</goal>
+            </goals>
+						<phase>compile</phase>
+            <configuration>
+              <arguments>compile</arguments>
+            </configuration>
+          </execution>
+					<execution>
             <id>yarn test</id>
             <goals>
               <goal>yarn</goal>
