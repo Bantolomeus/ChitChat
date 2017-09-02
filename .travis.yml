@@ -15,9 +15,6 @@ install:
       make && make install;
       cd ..;
     fi
-jobs:
-  include:
-    - stage: build package
-      script:
-        - $TRAVIS_BUILD_DIR/sysconfcpus/bin/sysconfcpus -n 2
-        - ./mvnw package -B
+script:
+   - $TRAVIS_BUILD_DIR/sysconfcpus/bin/sysconfcpus -n 2
+   - ./mvnw package -B
