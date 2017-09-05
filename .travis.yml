@@ -1,20 +1,20 @@
 language: java
-
 cache:
   directories:
-    - sysconfcpus
-    - $HOME/.m2
-    - $HOME/.cache/yarn
+  - sysconfcpus
+  - $HOME/.m2
+  - $HOME/.cache/yarn
 install:
-  - |
-    if [ ! -d sysconfcpus/bin ];
-    then
-      git clone https://github.com/obmarg/libsysconfcpus.git; 
-      cd libsysconfcpus;
-      ./configure --prefix=$TRAVIS_BUILD_DIR/sysconfcpus;
-      make && make install;
-      cd ..;
-    fi
+- "if [ ! -d sysconfcpus/bin ];\nthen\n  git clone https://github.com/obmarg/libsysconfcpus.git;
+  \n  cd libsysconfcpus;\n  ./configure --prefix=$TRAVIS_BUILD_DIR/sysconfcpus;\n
+  \ make && make install;\n  cd ..;\nfi\n"
 script:
-   - $TRAVIS_BUILD_DIR/sysconfcpus/bin/sysconfcpus -n 2
-   - ./mvnw package -B
+- $TRAVIS_BUILD_DIR/sysconfcpus/bin/sysconfcpus -n 2
+- ./mvnw package -B
+deploy:
+  provider: heroku
+  api_key:
+    secure: W5WMnXeRxOeHFMTpnEJIIVupRTKd/QxZLhTOTK1YWdQBopsZz4lvxQ8Ych5FpMjDPxByhZgwhEpJOtUKjfL2glW7yl8fEw6R6HBeD29h1zcAhX1E64AKGYGpKSVcnwjgG/H2AosbuF8gZbE5xp1KxkwTtIeaTU9tXpoHfPNQpRgKaiWuRYCoSb+Bq0gIsL1vuL/lE9ZddMrmR0pH7pQ0qa1a86J0Fj1p04TT9J14RaW8UyxdCHEnYPSw+22VWhyTcVEpriEQ3Z9Q/HAcjMUKNoPzR26A44Aml3dA5/MvStn9qwwDN4ODjNhR4+n7FDRJjWWSfWXUZ54HKJyPQGaZ9V5NSFNMccNZx2V2R8PId2eu/q/SNtbl3kRittWd5Yw7P1JjGW4hCws4EurqmsnJyfmhp0GjQgKWcknPbDHaJBJqcutZc8nGNAeFcs2+Zi5fHMy4qbnkVFuEkINoEd8VeTpRM8NLdarfne0DmKTa3EecB1/ajVwiMGTNzDSmpWiZDlPBSOChxFqVYM/9WHFz88r+3UMSk+nWIxDgF3zY/FnKB6Stj/SmNcL3BgiPk1PyHJhgTmLKoqiW2XPW1RqcRevk1raa85Cb65AnYMQgbytITKK34+ZKUf5/l1xkrP/RyBLMuxeyOlpSilfw+qCj3ukjVXx++9M433c4uGoKotg=
+  app: cryptic-fjord-48959
+  on:
+    repo: Bantolomeus/ChitChat
