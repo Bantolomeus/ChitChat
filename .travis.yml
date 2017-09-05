@@ -1,15 +1,11 @@
 language: java
 cache:
   directories:
-  - sysconfcpus
   - $HOME/.m2
   - $HOME/.cache/yarn
-install:
-- "if [ ! -d sysconfcpus/bin ];\nthen\n  git clone https://github.com/obmarg/libsysconfcpus.git;
-  \n  cd libsysconfcpus;\n  ./configure --prefix=$TRAVIS_BUILD_DIR/sysconfcpus;\n
-  \ make && make install;\n  cd ..;\nfi\n"
+install: true
+sudo: required
 script:
-- $TRAVIS_BUILD_DIR/sysconfcpus/bin/sysconfcpus -n 2
 - ./mvnw package -B
 deploy:
   provider: heroku
